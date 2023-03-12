@@ -4,8 +4,9 @@ const Engineer = require("./lib/Engineer");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
+const render = require("./lib/render");
 console.log(__dirname);
-// const OUTPUT_DIR = path.resolve(__dirname, "/output");
+// const OUTPUT_DIR = path.resolve(__dirname, "/dist");
 // const OUTPUT_PATH = path.resolve(OUTPUT_PATH, "/team.html");
 
 const employeeArray = [];
@@ -136,11 +137,32 @@ function restart() {
             else {
                 console.log("Finished!!")
                 console.log(employeeArray);
-                // let team = render(employeeArray)
-                // console.log(team);
-                // createTeamHtml(team)
+                let team = render(employeeArray)
+                console.log(team);
+                createTeamHtml(team)
             }
         })
+}
+
+function createTeamHtml(content) {
+  try {
+    if (!fs.existsSync(path.resolve(__dirname, "./dist"))) {
+      fs.mkdirSync(path.resolve(__dirname, "./dist"))
+    } else {
+      console.log("Directory already exists.")
+    }
+  } catch (error) {
+    console.log(error)
+  }
+
+  fs.writeFile(path.resolve(__dirname, "./dist/team.html"), content, function(err) {
+    if (err) {
+      console.log(`Some ${err} occured.`)
+    } else {
+      console.log("File Created!!")
+    }
+  })
+
 }
 
 addEmployee();
