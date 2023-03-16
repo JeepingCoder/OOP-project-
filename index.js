@@ -6,8 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const render = require("./lib/render");
 console.log(__dirname);
-// const OUTPUT_DIR = path.resolve(__dirname, "/dist");
-// const OUTPUT_PATH = path.resolve(OUTPUT_PATH, "/team.html");
+
 
 const employeeArray = [];
 
